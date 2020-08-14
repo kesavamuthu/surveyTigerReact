@@ -4,20 +4,25 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function Answers(props) {
   const show = false;
-  console.log(props);
+  //   console.log(props);
   let answers = props.answers.map((e) => e);
   //   const [count, setCount] = useState(answers.length);
   //   const increment = () => setCount(count + 1);
   //   const decrement = () => setCount(count - 1);
 
   const limit = show ? 2 : answers.length;
-  console.log(show, limit);
+  //   console.log(show, limit);
   let values = limit === 2 && !answers.length ? ["Yes", "No"] : answers;
-  let result = twoOptions(limit, values, props.belongsTo);
+  let result = twoOptions(
+    limit,
+    values,
+    props.belongsTo,
+    props.inputCounter,
+    props.optionRemover
+  );
   return (
     <div
       onChange={(event) => {
-        props.inputCounter(event);
         props.answerUpdater(event);
       }}
     >
@@ -26,7 +31,7 @@ function Answers(props) {
   );
 }
 
-function twoOptions(limit, value, belongsTo) {
+function twoOptions(limit, value, belongsTo, increment, decrement) {
   let result = [];
   for (let i = 0; i < limit; ++i)
     result.push(
@@ -41,15 +46,16 @@ function twoOptions(limit, value, belongsTo) {
         <InputGroup.Append>
           <Button
             variant="outline-secondary"
-            // onClick={increment}
-            data-set="increment"
+            onClick={increment}
+            data-value={belongsTo + "q" + i}
           >
             +
           </Button>
           <Button
             variant="outline-secondary"
-            // onClick={decrement}
+            onClick={decrement}
             data-set="decrement"
+            data-value={belongsTo + "q" + i}
           >
             -
           </Button>

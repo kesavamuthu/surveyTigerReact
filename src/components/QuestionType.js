@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, DropdownButton, Dropdown } from "react-bootstrap";
 
 function QuestionType(props) {
-  const [show, setShow] = useState(props.status);
-
-  const handleClose = () => setShow(false);
+  //   const [show, setShow] = useState(props.status);
+  //   console.log("prosp in qustion ", props.status);
+  //   if (!show) setShow(props.status);
+  //   const handleClose = () => setShow(false);
   //   const handleShow = () => setShow(true);
 
   return (
@@ -13,8 +14,8 @@ function QuestionType(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      show={show}
-      onHide={handleClose}
+      show={props.status}
+      onHide={props.onSelect}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -27,7 +28,7 @@ function QuestionType(props) {
           size="lg"
           title="Drop large"
           onSelect={(event) => {
-            handleClose();
+            // handleClose();
             props.onSelect(event);
           }}
         >
@@ -36,7 +37,7 @@ function QuestionType(props) {
         </DropdownButton>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose}>Close</Button>
+        <Button onClick={props.onSelect}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

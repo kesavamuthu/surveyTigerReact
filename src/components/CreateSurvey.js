@@ -29,6 +29,8 @@ class CreateSurvey extends React.Component {
     this.inputCounter = this.inputCounter.bind(this);
     this.questionUpdater = this.questionUpdater.bind(this);
     this.answerUpdater = this.answerUpdater.bind(this);
+    this.optionRemover = this.optionRemover.bind(this);
+    this.addMoreQuestions = this.addMoreQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -37,12 +39,25 @@ class CreateSurvey extends React.Component {
 
   selectedOption(event) {
     console.log(event);
-    this.setState({
-      currentQuestionType: event == 1,
-    });
+    // let tmp = [...this.state.questions];
+    this.questionType = event;
+    this.setState(
+      {
+        currentQuestionType: true,
+      },
+      this.helper
+    );
   }
 
-  inputCounter() {}
+  inputCounter(event) {
+    console.log(event.target.dataset.value);
+    let ind = event.target.dataset.value.split("q");
+    let tmp = [...this.state.answers];
+    tmp[ind[0]].options.splice(+ind[1] + 1, 0, "");
+    this.setState({
+      answers: [...tmp],
+    });
+  }
 
   qAndans() {
     return this.state.questions.map((e, i) => (
@@ -60,6 +75,7 @@ class CreateSurvey extends React.Component {
           answerUpdater={this.answerUpdater}
           key={i}
           belongsTo={i}
+          optionRemover={this.optionRemover}
         />
       </>
     ));
@@ -78,7 +94,7 @@ class CreateSurvey extends React.Component {
   }
 
   answerUpdater(event) {
-    let tmp = this.state.answers;
+    let tmp = [...this.state.answers];
     let ind = event.target.name.split("q");
     tmp[ind[0]].options[ind[1]] = event.target.value;
     this.setState({
@@ -86,15 +102,57 @@ class CreateSurvey extends React.Component {
     });
   }
 
+  optionRemover(event) {
+    console.log(event.target.dataset.value);
+    let ind = event.target.dataset.value.split("q");
+    let tmp = [...this.state.answers];
+    tmp[ind[0]].options.splice(ind[1], 1);
+    this.setState({
+      answers: [...tmp],
+    });
+  }
+
+  addMoreQuestions() {
+    this.setState({
+      currentQuestionType: false,
+    });
+  }
+
+  helper() {
+    let tmp = this.state;
+    console.log("in heleper");
+    if (this.questionType) {
+      tmp.questions.push({
+        formId: "",
+        qType: "",
+        question: "",
+      });
+      tmp.answers.push({
+        qNo: "",
+        options: this.questionType == 1 ? [""] : ["yes", "no"],
+        formId: "",
+      });
+      this.setState({
+        ...tmp,
+      });
+    }
+  }
   render() {
-    console.log("hai in ");
+    console.log(!this.state.currentQuestionType && "hai in ");
+    console.log("current state", this.state);
     return (
       <>
-        {!this.state.currentQuestionType ? (
-          <QuestionType onSelect={this.selectedOption} status={true} />
-        ) : (
-          <>{this.qAndans()}</>
+        {!this.state.currentQuestionType && (
+          <QuestionType
+            onSelect={this.selectedOption}
+            status={!this.state.currentQuestionType}
+          />
         )}
+        {this.qAndans()}
+        <Button variant="primary" onClick={this.addMoreQuestions}>
+          Add Question
+        </Button>
+        <Button variant="success">Publish</Button>
       </>
     );
   }
