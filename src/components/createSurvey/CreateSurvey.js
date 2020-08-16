@@ -3,7 +3,7 @@ import { Row, Col, Button, Container } from "react-bootstrap";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
 import Answers from "./answers";
-import util from "../utility/utility";
+import util from "../../utility/utility";
 
 class CreateSurvey extends React.Component {
   constructor(props) {

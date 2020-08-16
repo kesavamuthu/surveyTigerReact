@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import CreateSurvey from "./CreateSurvey";
-import TakeSurvey from "./TakeSurvey";
+import CreateSurvey from "./createSurvey/CreateSurvey";
+import TakeSurvey from "./takeSurvey/TakeSurvey";
 
 function init() {
   return (

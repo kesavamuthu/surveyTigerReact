@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Answers from "./AnswerForTakeSurvey";
-import util from "../utility/utility";
+import util from "../../utility/utility";
 
 class TakeSurvey extends React.Component {
   constructor(props) {
