@@ -50,7 +50,6 @@ class CreateSurvey extends React.Component {
     Object.keys(tmp).forEach((e) => {
       if (e === "questions" || e === "answers")
         tmp[e].forEach((ele, i) => {
-          console.log(ele);
           util
             .requestMaker(ele, "post", e === "questions" ? "set" : "setans")
             .then((res) => console.log)
@@ -62,7 +61,6 @@ class CreateSurvey extends React.Component {
   }
 
   selectedOption(event) {
-    console.log(event);
     if (isNaN(event)) {
       this.setState({
         currentQuestionType: true,
@@ -79,7 +77,6 @@ class CreateSurvey extends React.Component {
   }
 
   inputCounter(event) {
-    console.log(event.target.dataset.value);
     let ind = event.target.dataset.value.split("q");
     if (this.state.questions[ind[0]].qType == 2) return;
     if (this.state.answers[ind[0]].options.length >= 4) return;
@@ -131,7 +128,6 @@ class CreateSurvey extends React.Component {
   }
 
   optionRemover(event) {
-    console.log(event.target.dataset.value);
     let ind = event.target.dataset.value.split("q");
     if (this.state.questions[ind[0]].qType == 2) return;
     let tmp = [...this.state.answers];
@@ -149,7 +145,6 @@ class CreateSurvey extends React.Component {
 
   helper(qType) {
     let tmp = this.state;
-    console.log("in heleper");
     if (this.questionType) {
       tmp.questions.push({
         formId: this.formId,

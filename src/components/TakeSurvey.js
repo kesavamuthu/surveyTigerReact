@@ -79,10 +79,7 @@ class TakeSurvey extends React.Component {
   }
 
   answerUpdater(idealIndex, ind) {
-    // console.log("value is ", value);
     let tmp = [...this.state.selected];
-    // let idealIndex = value;
-    console.log(idealIndex, this.state.answers[ind].options[idealIndex]);
     if (this.state.questions[ind].qType === 2) tmp[ind] = idealIndex;
     else if (Array.isArray(tmp[ind])) {
       tmp[ind].indexOf(idealIndex) !== -1
@@ -99,8 +96,6 @@ class TakeSurvey extends React.Component {
   }
 
   render() {
-    console.table(this.state.selected);
-    console.table("current state", this.state);
     return (
       <>
         {this.qAndans()}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateSurvey from "./CreateSurvey";
 import TakeSurvey from "./TakeSurvey";
@@ -10,13 +10,6 @@ function init() {
       <Router>
         <Switch>
           <Route exact path="/">
-            {/* <Container
-              className=""
-              // style={{ transform: "translate(10%, 60%)", margin: "0" }}
-            >
-              <Row>
-                <Col md={{ span: 6, offset: 3 }}> */}
-            {/* <Card style={{ width: "18rem" }}> */}
             <div
               className="parent"
               style={{
@@ -37,10 +30,6 @@ function init() {
                 </Button>
               </Link>
             </div>
-            {/* </Card> */}
-            {/* </Col>
-              </Row>
-            </Container> */}
           </Route>
           <Route path="/create">
             <CreateSurvey />

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function Answers(props) {
   const show = false;
   let answers = props.answers.map((e) => e);
-  console.log("questionType", props.questionType);
   const limit = show ? 2 : answers.length;
   let values = props.questionType == 2 ? ["Yes", "No"] : answers;
   let result = options(
