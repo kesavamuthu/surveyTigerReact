@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
@@ -179,7 +179,7 @@ class CreateSurvey extends React.Component {
   }
   render() {
     return (
-      <>
+      <Container>
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
             {!this.state.currentQuestionType && (
@@ -201,7 +201,7 @@ class CreateSurvey extends React.Component {
             )}
           </Col>
         </Row>
-      </>
+      </Container>
     );
   }
 }

@@ -17,14 +17,24 @@ function init() {
               <Row>
                 <Col md={{ span: 6, offset: 3 }}> */}
             {/* <Card style={{ width: "18rem" }}> */}
-            <div className="parent">
+            <div
+              className="parent"
+              style={{
+                height: "70vh",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <Link to="/create">
                 <div className="m-5">
                   <Button variant="success">Create survey</Button>
                 </div>
               </Link>
               <Link to="/take">
-                <Button variant="success">Take survey</Button>
+                <Button variant="success" style={{ width: "105%" }}>
+                  Take survey
+                </Button>
               </Link>
             </div>
             {/* </Card> */}
