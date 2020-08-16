@@ -11,21 +11,23 @@ import TakeSurvey from "./components/TakeSurvey";
 
 function App() {
   return (
-    <div className="App">
-      <Avatar url={config.imgSrc} />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Init />
-          </Route>
-          <Route path="/create">
-            <CreateSurvey />
-          </Route>
-          <Route path="/take">
-            <TakeSurvey />
-          </Route>
-        </Switch>
-      </Router>
+    <div style={{ backgroundColor: "#ffa8B6", height: "100vh" }}>
+      <div className="App" style={{ position: "relative", top: "2vh" }}>
+        <Avatar url={config.imgSrc} />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Init />
+            </Route>
+            <Route path="/create">
+              <CreateSurvey />
+            </Route>
+            <Route path="/take">
+              <TakeSurvey />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
     </div>
   );
 }

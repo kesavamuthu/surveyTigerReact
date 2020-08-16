@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
@@ -168,7 +168,7 @@ class CreateSurvey extends React.Component {
         qNo: tmp.questions.length,
       });
       tmp.answers.push({
-        qNo: tmp.questions.length,
+        qNo: tmp.questions.length - 1,
         options: this.questionType == 1 ? [""] : ["yes", "no"],
         formId: this.formId,
       });
@@ -178,27 +178,29 @@ class CreateSurvey extends React.Component {
     }
   }
   render() {
-    console.log(!this.state.currentQuestionType && "hai in ");
-    console.log("current state", this.state);
     return (
       <>
-        {!this.state.currentQuestionType && (
-          <QuestionType
-            onSelect={this.selectedOption}
-            status={!this.state.currentQuestionType}
-          />
-        )}
-        {this.qAndans()}
-        {this.state.questions.length && (
-          <>
-            <Button variant="primary" onClick={this.addMoreQuestions}>
-              Add Question
-            </Button>
-            <Button variant="success" onClick={this.publish}>
-              Publish
-            </Button>
-          </>
-        )}
+        <Row>
+          <Col md={{ span: 6, offset: 3 }}>
+            {!this.state.currentQuestionType && (
+              <QuestionType
+                onSelect={this.selectedOption}
+                status={!this.state.currentQuestionType}
+              />
+            )}
+            {this.qAndans()}
+            {this.state.questions.length && (
+              <>
+                <Button variant="primary" onClick={this.addMoreQuestions}>
+                  Add Question
+                </Button>
+                <Button variant="success" onClick={this.publish}>
+                  Publish
+                </Button>
+              </>
+            )}
+          </Col>
+        </Row>
       </>
     );
   }
