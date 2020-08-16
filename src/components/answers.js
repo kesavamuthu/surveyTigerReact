@@ -4,21 +4,17 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function Answers(props) {
   const show = false;
-  //   console.log(props);
   let answers = props.answers.map((e) => e);
-  //   const [count, setCount] = useState(answers.length);
-  //   const increment = () => setCount(count + 1);
-  //   const decrement = () => setCount(count - 1);
-
+  console.log("questionType", props.questionType);
   const limit = show ? 2 : answers.length;
-  //   console.log(show, limit);
-  let values = limit === 2 && !answers.length ? ["Yes", "No"] : answers;
-  let result = twoOptions(
+  let values = props.questionType == 2 ? ["Yes", "No"] : answers;
+  let result = options(
     limit,
     values,
     props.belongsTo,
     props.inputCounter,
-    props.optionRemover
+    props.optionRemover,
+    props.questionType == 2
   );
   return (
     <div
@@ -31,11 +27,11 @@ function Answers(props) {
   );
 }
 
-function twoOptions(limit, value, belongsTo, increment, decrement) {
+function options(limit, value, belongsTo, increment, decrement, disabled) {
   let result = [];
   for (let i = 0; i < limit; ++i)
     result.push(
-      <InputGroup key={i}>
+      <InputGroup key={i} className="mt-2 mb-2">
         <FormControl
           placeholder="Type answer here"
           aria-label="answers"
@@ -45,17 +41,19 @@ function twoOptions(limit, value, belongsTo, increment, decrement) {
         />
         <InputGroup.Append>
           <Button
-            variant="outline-secondary"
+            variant="success"
             onClick={increment}
             data-value={belongsTo + "q" + i}
+            disabled={disabled}
           >
             +
           </Button>
           <Button
-            variant="outline-secondary"
+            variant="danger"
             onClick={decrement}
             data-set="decrement"
             data-value={belongsTo + "q" + i}
+            disabled={disabled}
           >
             -
           </Button>

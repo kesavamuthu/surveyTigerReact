@@ -1,30 +1,30 @@
 import React from "react";
-import { Card, Form } from "react-bootstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { ListGroup, Form } from "react-bootstrap";
 
 function AnswerForTakeSurvey(props) {
   let type = ["checkbox", "radio"];
-  let name;
   type = type[+props.questionType === 2 ? 1 : 0];
   let res = props.answers.map((e, i) => {
-    // name = type === "checkbox" ? i : "radio";
     return (
-      <div key={`default-${i + type}`} className="mb-3">
+      <ListGroup.Item
+        style={{ textAlign: "left", backgroundColor: "#df6504" }}
+        variant="info"
+        className="mb-3"
+      >
         <Form.Check
           type={type}
           id={e + i}
           label={e}
-          //   name={name}
           value={e}
           checked={statusDecider(i)}
           onClick={(event) => {
             props.answerUpdater(event, props.belongsTo);
           }}
         />
-      </div>
+      </ListGroup.Item>
     );
   });
-  return <div class="parent">{res}</div>;
+  return <ListGroup>{res}</ListGroup>;
 
   function statusDecider(i) {
     if (Array.isArray(props.selected)) return props.selected.indexOf(i) !== -1;

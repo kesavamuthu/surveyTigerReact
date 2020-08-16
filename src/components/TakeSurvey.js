@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Row, Col, Button, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Answers from "./AnswerForTakeSurvey";
 import util from "../utility/utility";
 
@@ -55,23 +56,31 @@ class TakeSurvey extends React.Component {
   qAndans() {
     return this.state.questions.map((e, i) => (
       <>
-        <Form.Label column lg={2}>
-          {i + 1}) {this.state.questions[i].question}
-        </Form.Label>
+        <Row>
+          <Col md={{ span: 6, offset: 3 }}>
+            <Alert
+              variant="primary"
+              style={{ textAlign: "left", fontSize: "1.5em" }}
+            >
+              {i + 1}) {this.state.questions[i].question}
+            </Alert>
 
-        <Answers
-          questionType={this.state.questions[i].qType}
-          answers={this.state.answers[i].options}
-          answerUpdater={this.answerUpdater}
-          key={i}
-          belongsTo={i}
-          selected={this.state.selected[i]}
-        />
+            <Answers
+              questionType={this.state.questions[i].qType}
+              answers={this.state.answers[i].options}
+              answerUpdater={this.answerUpdater}
+              key={i}
+              belongsTo={i}
+              selected={this.state.selected[i]}
+            />
+          </Col>
+        </Row>
       </>
     ));
   }
 
-  answerUpdater(event, ind) {
+  answerUpdater(event, ind, value) {
+    console.log("value is ", value);
     console.log(event.target.value, ind, this.selected);
     let tmp = [...this.state.selected];
     let idealIndex = this.state.answers[ind].options.indexOf(
@@ -100,7 +109,9 @@ class TakeSurvey extends React.Component {
     return (
       <>
         {this.qAndans()}
-        <Button onClick={this.publish}>click </Button>
+        <Link to="/">
+          <Button onClick={this.publish}>Submit </Button>
+        </Link>
       </>
     );
   }

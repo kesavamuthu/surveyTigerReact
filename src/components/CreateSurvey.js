@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
 import Answers from "./answers";
@@ -46,10 +45,6 @@ class CreateSurvey extends React.Component {
       });
   }
 
-  componentWillUpdate() {
-    console.log("updated ");
-  }
-
   publish() {
     let tmp = this.state;
     Object.keys(tmp).forEach((e) => {
@@ -63,14 +58,11 @@ class CreateSurvey extends React.Component {
               console.error(err);
             });
         });
-
-      // util.requestMaker(e.answers, "post", "/");
     });
   }
 
   selectedOption(event) {
     console.log(event);
-    // let tmp = [...this.state.questions];
     if (isNaN(event)) {
       this.setState({
         currentQuestionType: true,
@@ -101,13 +93,12 @@ class CreateSurvey extends React.Component {
     return this.state.questions.map((e, i) => (
       <>
         <QuestionMaker
-          questionType={this.state.currentQuestionType}
           qValue={this.state.questions[i].question}
           questionUpdater={this.questionUpdater}
           name={i}
         />
         <Answers
-          questionType={this.state.currentQuestionType}
+          questionType={this.state.questions[i].qType}
           answers={this.state.answers[i].options}
           inputCounter={this.inputCounter}
           answerUpdater={this.answerUpdater}
@@ -120,7 +111,6 @@ class CreateSurvey extends React.Component {
   }
 
   questionUpdater(event) {
-    console.log(event.target.value, event.target.name);
     let value = event.target.value;
     let tmp = this.state.questions;
     tmp[+event.target.name].question = value;
@@ -128,7 +118,6 @@ class CreateSurvey extends React.Component {
     this.setState({
       questions: [...tmp],
     });
-    console.log(this.state);
   }
 
   answerUpdater(event) {
@@ -191,7 +180,11 @@ class CreateSurvey extends React.Component {
             {this.qAndans()}
             {this.state.questions.length && (
               <>
-                <Button variant="primary" onClick={this.addMoreQuestions}>
+                <Button
+                  variant="primary"
+                  className="mr-5"
+                  onClick={this.addMoreQuestions}
+                >
                   Add Question
                 </Button>
                 <Button variant="success" onClick={this.publish}>
