@@ -55,44 +55,40 @@ class TakeSurvey extends React.Component {
 
   qAndans() {
     return this.state.questions.map((e, i) => (
-      <>
-        <Row>
-          <Col md={{ span: 6, offset: 3 }}>
-            <Alert
-              variant="primary"
-              style={{ textAlign: "left", fontSize: "1.5em" }}
-            >
-              {i + 1}) {this.state.questions[i].question}
-            </Alert>
+      <Row key={"r" + i}>
+        <Col md={{ span: 6, offset: 3 }}>
+          <Alert
+            variant="primary"
+            style={{ textAlign: "left", fontSize: "1.5em" }}
+            key={"q" + i}
+          >
+            {i + 1}) {this.state.questions[i].question}
+          </Alert>
 
-            <Answers
-              questionType={this.state.questions[i].qType}
-              answers={this.state.answers[i].options}
-              answerUpdater={this.answerUpdater}
-              key={i}
-              belongsTo={i}
-              selected={this.state.selected[i]}
-            />
-          </Col>
-        </Row>
-      </>
+          <Answers
+            questionType={this.state.questions[i].qType}
+            answers={this.state.answers[i].options}
+            answerUpdater={this.answerUpdater}
+            key={i}
+            belongsTo={i}
+            selected={this.state.selected[i]}
+          />
+        </Col>
+      </Row>
     ));
   }
 
-  answerUpdater(event, ind, value) {
-    console.log("value is ", value);
-    console.log(event.target.value, ind, this.selected);
+  answerUpdater(idealIndex, ind) {
+    // console.log("value is ", value);
     let tmp = [...this.state.selected];
-    let idealIndex = this.state.answers[ind].options.indexOf(
-      event.target.value
-    );
+    // let idealIndex = value;
     console.log(idealIndex, this.state.answers[ind].options[idealIndex]);
     if (this.state.questions[ind].qType === 2) tmp[ind] = idealIndex;
     else if (Array.isArray(tmp[ind])) {
-      tmp[ind].indexOf(idealIndex) != -1
+      tmp[ind].indexOf(idealIndex) !== -1
         ? tmp[ind].splice(tmp[ind].indexOf(idealIndex), 1)
         : tmp[ind].push(idealIndex);
-    } else if (tmp.indexOf(idealIndex) != -1)
+    } else if (tmp.indexOf(idealIndex) !== -1)
       tmp.splice(tmp.indexOf(idealIndex), 1);
     else {
       tmp[ind] = [];

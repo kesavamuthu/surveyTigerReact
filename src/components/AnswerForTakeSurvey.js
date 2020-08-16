@@ -10,16 +10,17 @@ function AnswerForTakeSurvey(props) {
         style={{ textAlign: "left", backgroundColor: "#df6504" }}
         variant="info"
         className="mb-3"
+        onClick={() => {
+          props.answerUpdater(i, props.belongsTo);
+        }}
+        key={i}
       >
         <Form.Check
           type={type}
           id={e + i}
           label={e}
-          value={e}
           checked={statusDecider(i)}
-          onClick={(event) => {
-            props.answerUpdater(event, props.belongsTo);
-          }}
+          key={i}
         />
       </ListGroup.Item>
     );
