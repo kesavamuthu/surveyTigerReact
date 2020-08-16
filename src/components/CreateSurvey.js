@@ -4,24 +4,25 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
 import Answers from "./answers";
+import util from "../utility/utility";
 
 class CreateSurvey extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [
-        {
-          formId: "",
-          qType: "",
-          question: "",
-        },
+        // {
+        //   formId: 1,
+        //   qType: true,
+        //   question: "",
+        // },
       ],
       answers: [
-        {
-          qNo: "",
-          options: ["hello", "what"],
-          formId: "",
-        },
+        // {
+        //   qNo: 1,
+        //   options: ["hello", "what"],
+        //   formId: 1,
+        // },
       ],
       currentQuestionType: "",
     };
@@ -31,27 +32,64 @@ class CreateSurvey extends React.Component {
     this.answerUpdater = this.answerUpdater.bind(this);
     this.optionRemover = this.optionRemover.bind(this);
     this.addMoreQuestions = this.addMoreQuestions.bind(this);
+    this.publish = this.publish.bind(this);
   }
 
   componentDidMount() {
-    return <QuestionType />;
+    util
+      .requestMaker({ uId: 1, name: "anonymous" }, "post", "create")
+      .then((val) => {
+        this.formId = val.data.id;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  componentWillUpdate() {
+    console.log("updated ");
+  }
+
+  publish() {
+    let tmp = this.state;
+    Object.keys(tmp).forEach((e) => {
+      if (e === "questions" || e === "answers")
+        tmp[e].forEach((ele, i) => {
+          console.log(ele);
+          util
+            .requestMaker(ele, "post", e === "questions" ? "set" : "setans")
+            .then((res) => console.log)
+            .catch((err) => {
+              console.error(err);
+            });
+        });
+
+      // util.requestMaker(e.answers, "post", "/");
+    });
   }
 
   selectedOption(event) {
     console.log(event);
     // let tmp = [...this.state.questions];
+    if (isNaN(event)) {
+      this.setState({
+        currentQuestionType: true,
+      });
+      return;
+    }
     this.questionType = event;
     this.setState(
       {
         currentQuestionType: true,
       },
-      this.helper
+      () => this.helper(event)
     );
   }
 
   inputCounter(event) {
     console.log(event.target.dataset.value);
     let ind = event.target.dataset.value.split("q");
+    if (this.state.questions[ind[0]].qType == 2) return;
     let tmp = [...this.state.answers];
     tmp[ind[0]].options.splice(+ind[1] + 1, 0, "");
     this.setState({
@@ -105,6 +143,7 @@ class CreateSurvey extends React.Component {
   optionRemover(event) {
     console.log(event.target.dataset.value);
     let ind = event.target.dataset.value.split("q");
+    if (this.state.questions[ind[0]].qType == 2) return;
     let tmp = [...this.state.answers];
     tmp[ind[0]].options.splice(ind[1], 1);
     this.setState({
@@ -118,19 +157,20 @@ class CreateSurvey extends React.Component {
     });
   }
 
-  helper() {
+  helper(qType) {
     let tmp = this.state;
     console.log("in heleper");
     if (this.questionType) {
       tmp.questions.push({
-        formId: "",
-        qType: "",
+        formId: this.formId,
+        qType,
         question: "",
+        qNo: tmp.questions.length,
       });
       tmp.answers.push({
-        qNo: "",
+        qNo: tmp.questions.length,
         options: this.questionType == 1 ? [""] : ["yes", "no"],
-        formId: "",
+        formId: this.formId,
       });
       this.setState({
         ...tmp,
@@ -149,10 +189,16 @@ class CreateSurvey extends React.Component {
           />
         )}
         {this.qAndans()}
-        <Button variant="primary" onClick={this.addMoreQuestions}>
-          Add Question
-        </Button>
-        <Button variant="success">Publish</Button>
+        {this.state.questions.length && (
+          <>
+            <Button variant="primary" onClick={this.addMoreQuestions}>
+              Add Question
+            </Button>
+            <Button variant="success" onClick={this.publish}>
+              Publish
+            </Button>
+          </>
+        )}
       </>
     );
   }

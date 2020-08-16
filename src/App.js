@@ -7,6 +7,7 @@ import Avatar from "./components/Avatar";
 import Example from "./components/example";
 import CreateSurvey from "./components/CreateSurvey";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import TakeSurvey from "./components/TakeSurvey";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/create">
             <CreateSurvey />
+          </Route>
+          <Route path="/take">
+            <TakeSurvey />
           </Route>
         </Switch>
       </Router>
