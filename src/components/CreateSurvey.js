@@ -82,6 +82,7 @@ class CreateSurvey extends React.Component {
     console.log(event.target.dataset.value);
     let ind = event.target.dataset.value.split("q");
     if (this.state.questions[ind[0]].qType == 2) return;
+    if (this.state.answers[ind[0]].options.length >= 4) return;
     let tmp = [...this.state.answers];
     tmp[ind[0]].options.splice(+ind[1] + 1, 0, "");
     this.setState({

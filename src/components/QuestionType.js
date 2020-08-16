@@ -19,14 +19,14 @@ function QuestionType(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Select question
+          Select Question Type
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <DropdownButton
           // as={ButtonGroup}
           size="lg"
-          title="Drop large"
+          title="Select question"
           onSelect={(event) => {
             // handleClose();
             props.onSelect(event);

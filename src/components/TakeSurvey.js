@@ -88,8 +88,7 @@ class TakeSurvey extends React.Component {
       tmp[ind].indexOf(idealIndex) !== -1
         ? tmp[ind].splice(tmp[ind].indexOf(idealIndex), 1)
         : tmp[ind].push(idealIndex);
-    } else if (tmp.indexOf(idealIndex) !== -1)
-      tmp.splice(tmp.indexOf(idealIndex), 1);
+    } else if (tmp[ind] === idealIndex) tmp[idealIndex] = "";
     else {
       tmp[ind] = [];
       tmp[ind].push(idealIndex);
