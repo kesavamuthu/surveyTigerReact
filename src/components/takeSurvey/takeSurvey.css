@@ -1,0 +1,14 @@
+.twoOptions {
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.twoOptions > div {
+  text-align: left;
+  width: 45%;
+}
+
+body {
+  overflow-x: hidden;
+  padding: 0px 50px 50px;
+}

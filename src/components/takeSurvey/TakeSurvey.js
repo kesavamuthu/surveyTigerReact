@@ -3,6 +3,7 @@ import { Row, Col, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Answers from "./AnswerForTakeSurvey";
 import util from "../../utility/utility";
+import "./takeSurvey.css";
 
 class TakeSurvey extends React.Component {
   constructor(props) {
@@ -97,12 +98,12 @@ class TakeSurvey extends React.Component {
 
   render() {
     return (
-      <>
+      <div style={{ marginTop: "10px" }}>
         {this.qAndans()}
         <Link to="/">
           <Button onClick={this.publish}>Submit </Button>
         </Link>
-      </>
+      </div>
     );
   }
 }
