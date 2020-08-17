@@ -5,8 +5,9 @@ function Avatar(props) {
     <div>
       <img
         src={props.url}
-        alt=""
+        alt="Tiger face"
         style={{ width: "5em", height: "5rem", color: "orange" }}
+        title="Tiger survey page"
       />
     </div>
   );

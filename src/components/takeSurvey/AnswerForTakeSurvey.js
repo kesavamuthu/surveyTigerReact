@@ -11,10 +11,10 @@ function AnswerForTakeSurvey(props) {
       <ListGroup.Item
         style={{
           textAlign: "left",
-          backgroundColor: "#df6504",
+          // backgroundColor: "#df6504",
           cursor: "pointer",
         }}
-        variant="info"
+        variant={+props.questionType !== 2 ? "secondary" : "info"}
         className="mb-3"
         onClick={() => {
           props.answerUpdater(i, props.belongsTo);

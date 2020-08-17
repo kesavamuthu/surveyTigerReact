@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import QuestionType from "./QuestionType";
 import QuestionMaker from "./QuestionMaker";
 import Answers from "./answers";
@@ -183,9 +184,11 @@ class CreateSurvey extends React.Component {
                 >
                   Add Question
                 </Button>
-                <Button variant="success" onClick={this.publish}>
-                  Publish
-                </Button>
+                <Link to="/">
+                  <Button variant="success" onClick={this.publish}>
+                    Publish
+                  </Button>
+                </Link>
               </>
             )}
           </Col>
